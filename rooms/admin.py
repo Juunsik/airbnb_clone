@@ -8,6 +8,11 @@ class ItemAdmin(admin.ModelAdmin):
 
     """Item Admin Definition"""
 
+    list_display = ("name", "used_by")
+
+    def used_by(self, obj):
+        return obj.rooms.count()
+
     pass
 
 
@@ -51,6 +56,7 @@ class RoomAdmin(admin.ModelAdmin):
         "check_out",
         "instant_book",
         "count_amenities",
+        "count_photos",
     )
 
     # 정렬
@@ -82,8 +88,13 @@ class RoomAdmin(admin.ModelAdmin):
     )
 
     def count_amenities(self, obj):  # self: admin class(RoomAdmin), obj: 현재 row
-        print(obj.amenities.all())  # console에 현재 row 출력
-        return "Potato"
+        # print(obj.amenities.all())  # console에 현재 row 출력
+        return obj.amenities.count()
+
+    # count_amenities.short_description = "hello sexy!" 표시될 이름 바꾸기
+
+    def count_photos(self, obj):
+        return obj.photos.count()
 
 
 @admin.register(models.Photo)
