@@ -8,11 +8,24 @@ class Conversation(core_models.TimeStapedModel):
     """Conversation Model Definition"""
 
     participants = models.ManyToManyField(
-        "users.User", related_name="conversations", blank=True
+        "users.User", related_name="conversation", blank=True
     )
 
     def __str__(self):
-        return self.created
+        usernames = []
+        for user in self.participants.all():
+            usernames.append(user.username)
+        return ", ".join(usernames)
+
+    def count_messages(self):
+        return self.messages.count()
+
+    count_messages.shor_description = "Number of Messages"
+
+    def count_participants(self):
+        return self.participants.count()
+
+    count_participants.shor_description = "Number of participants"
 
 
 class Message(core_models.TimeStapedModel):
@@ -24,8 +37,8 @@ class Message(core_models.TimeStapedModel):
         "users.User", related_name="messages", on_delete=models.CASCADE
     )
     conversation = models.ForeignKey(
-        "conversation", related_name="messages", on_delete=models.CASCADE
+        "Conversation", related_name="messages", on_delete=models.CASCADE
     )
 
     def __str__(self):
-        return f"{self.user} says: {self.text}"
+        return f"{self.user} says: {self.message}"
