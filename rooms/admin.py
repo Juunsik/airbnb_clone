@@ -17,10 +17,17 @@ class ItemAdmin(admin.ModelAdmin):
     pass
 
 
+class PhotoInline(admin.TabularInline):
+
+    model = models.Photo
+
+
 @admin.register(models.Room)
 class RoomAdmin(admin.ModelAdmin):
 
     """Room Admin Definition"""
+
+    inlines = (PhotoInline,)
 
     # Rooms 정보 카테고리로 구성 셋
     fieldsets = (
@@ -76,18 +83,14 @@ class RoomAdmin(admin.ModelAdmin):
         "country",
     )
 
+    # user가 많을수록 list형 선택은 불편해져서 id형으로 관리
+    raw_id_fields = ("host",)
+
     # 검색 설정
-    search_fields = (
-        "city",
-        "^host__username",
-    )
+    search_fields = ("city", "^host__username")
 
     # many_to_many 항목 편집을 편하게
-    filter_horizontal = (
-        "amenities",
-        "facilities",
-        "house_rules",
-    )
+    filter_horizontal = ("amenities", "facilities", "house_rules")
 
     def count_amenities(self, obj):  # self: admin class(RoomAdmin), obj: 현재 row
         # print(obj.amenities.all())  # console에 현재 row 출력
