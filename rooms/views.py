@@ -1,5 +1,8 @@
-from django.utils import timezone
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
+
+# from django.http import Http404
+# from django.urls import reverse
+# from django.shortcuts import redirect, render
 from . import models
 
 
@@ -16,12 +19,15 @@ class HomeView(ListView):
     ordering = "created"
     context_object_name = "rooms"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        now = timezone.now()
-        context["now"] = now
-        return context
+    # from django.utils import timezone //now 출력
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     now = timezone.now()
+    #     context["now"] = now
+    #     return context
 
+
+# ==========================================================
 
 # django paginator 사용(2번째 방법)
 # core.urls.py urlpatterns path 일치해야 함
@@ -39,6 +45,7 @@ class HomeView(ListView):
 #         return render(request, "rooms/home.html", {"page": rooms})
 #     except EmptyPage:
 #         return redirect("/")
+# ==========================================================
 
 # 수동으로 paginator 만들기(1번째 방법,all_rooms func안에 위치)
 # page = int(page or 1)  # page= 일 경우 default
@@ -57,3 +64,21 @@ class HomeView(ListView):
 #         "page_range": range(1, page_count),
 #     },
 # )
+# ==========================================================
+
+# CBV(Class Based View)
+class RoomDetail(DetailView):
+
+    """RoomDetail Definition"""
+
+    model = models.Room
+
+
+# FBV(Function Based View)
+# def room_detail(request, pk):
+#     try:
+#         room = models.Room.objects.get(pk=pk)
+#         return render(request, "rooms/detail.html", {"room": room})
+#     except models.Room.DoesNotExist:
+#         raise Http404() #config/settings.py DEBUG=False
+#         # return redirect(reverse("core:home"))
