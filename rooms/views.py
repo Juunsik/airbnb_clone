@@ -2,10 +2,12 @@ from django.views.generic import ListView, DetailView
 
 # from django.http import Http404
 # from django.urls import reverse
-# from django.shortcuts import redirect, render
+from django_countries import countries
+from django.shortcuts import render
 from . import models
 
 
+# ======================================================================
 # Class Based View 사용(3번째 방법)
 # core.urls.py urlpatterns path : HomeView.as_view()
 # templates/rooms/room_list.html 파일 필요
@@ -27,7 +29,7 @@ class HomeView(ListView):
     #     return context
 
 
-# ==========================================================
+# ----------------------------------------------------------
 
 # django paginator 사용(2번째 방법)
 # core.urls.py urlpatterns path 일치해야 함
@@ -45,7 +47,7 @@ class HomeView(ListView):
 #         return render(request, "rooms/home.html", {"page": rooms})
 #     except EmptyPage:
 #         return redirect("/")
-# ==========================================================
+# ----------------------------------------------------------
 
 # 수동으로 paginator 만들기(1번째 방법,all_rooms func안에 위치)
 # page = int(page or 1)  # page= 일 경우 default
@@ -64,8 +66,9 @@ class HomeView(ListView):
 #         "page_range": range(1, page_count),
 #     },
 # )
-# ==========================================================
+# ======================================================================
 
+# ======================================================================
 # CBV(Class Based View)
 class RoomDetail(DetailView):
 
@@ -73,6 +76,8 @@ class RoomDetail(DetailView):
 
     model = models.Room
 
+
+# ----------------------------------------------------------
 
 # FBV(Function Based View)
 # def room_detail(request, pk):
@@ -82,3 +87,15 @@ class RoomDetail(DetailView):
 #     except models.Room.DoesNotExist:
 #         raise Http404() #config/settings.py DEBUG=False
 #         # return redirect(reverse("core:home"))
+# ======================================================================
+
+# ======================================================================
+def search(request):
+    city = request.GET.get("city", "Anywhere")
+    city = str.capitalize(city)
+    room_types = models.RoomType.objects.all()
+    return render(
+        request,
+        "rooms/search.html",
+        {"city": city, "countries": countries, "room_types": room_types},
+    )
