@@ -55,7 +55,7 @@ def log_out(request):
 
 # =========================================================================================
 
-# DBV base
+# CBV base
 # class LoginView(View):
 #     def get(self, request):
 #         pass
