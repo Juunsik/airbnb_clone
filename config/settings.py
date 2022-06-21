@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "c+#rq5cj6co*48&(2ffk&80g5mvsps^f3s-!t^sjxrd@(0b@&$"
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -140,3 +140,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
 
 # /media/: 절대경로, media/: 상대경로
 MEDIA_URL = "/media/"
+
+
+# Email Configuration
+EMAIL_HOST = "smtp.naver.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.environ.get("NAVERMAIL_USERNAME")
+EMAIL_HOST_PASSWORD = os.environ.get("NAVERMAIL_PASSWORD")
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_FROM = "junhyeok_1996@naver.com"
