@@ -1,5 +1,5 @@
 {% comment %} 같은 페이지에서 post 데이터 이동이 있다면 aciton 생략가능 {% endcomment %}
-<form method="POST" class="w-full">
+<form method="POST" class="w-full" enctype="multipart/form-data">
   {% csrf_token %}
 
   {% if form.non_field_errors %}
