@@ -3,6 +3,7 @@ import calendar
 
 class Calendar(calendar.Calendar):
     def __init__(self, year, month):
+        super().__init__(firstweekday=6)
         self.year = year
         self.month = month
         self.day_names = ("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat")
