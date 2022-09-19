@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-20 01:56+0900\n"
+"POT-Creation-Date: 2022-09-20 02:30+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,3 +29,48 @@ msgstr "따라하지 마세요."
 #: templates/partials/footer.html:8
 msgid "All rights reserved"
 msgstr "저작권 보유"
+
+#: templates/rooms/room_list.html:28
+#, python-format
+msgid "Page %(current_page)s of %(total_pages)s"
+msgstr "페이지 %(current_page)s / %(total_pages)s"
+
+#: users/mixins.py:25
+msgid "Can't go there"
+msgstr "권한이 없습니다"
+
+#: users/models.py:22
+msgid "Male"
+msgstr "남자"
+
+#: users/models.py:23
+msgid "Female"
+msgstr "여자"
+
+#: users/models.py:24
+msgid "Other"
+msgstr "기타"
+
+#: users/models.py:31
+msgid "English"
+msgstr "영어"
+
+#: users/models.py:32
+msgid "Korean"
+msgstr "한국어"
+
+#: users/models.py:52
+msgid "gender"
+msgstr "성별"
+
+#: users/models.py:54
+msgid "bio"
+msgstr "약력"
+
+#: users/models.py:57
+msgid "language"
+msgstr "언어"
+
+#: users/models.py:84
+msgid "Verify Airbnb Account"
+msgstr "Airbnb 계정 확인"
