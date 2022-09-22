@@ -11,4 +11,6 @@ def on_favs(context, room):
         user=user, name="My Favourites Houses"
     )
     if the_list is not None:
-        return room in the_list.room.all()
+        return room in the_list.rooms.all()
+    else:
+        return False
